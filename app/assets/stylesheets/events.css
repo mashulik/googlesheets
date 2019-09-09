@@ -1,0 +1,62 @@
+body
+{
+    background-color: #273746;
+    color: white;
+}
+
+.event {
+    height: 50px;
+    width: 100px;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 20px;
+    list-style-type: none;
+    text-align: center;
+}
+
+.wrapper {
+    max-width: 365px;
+    margin: 0 auto;
+}
+
+.wrapper__items {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 20px 0;
+}
+
+.wrapper__item {
+    cursor: pointer;
+    margin: 0 15px;
+    color: #000;
+}
+
+.btn_ticket {
+    width: 365px;
+    margin: 25px auto 0;
+}
+
+.btn_ticket p {
+    text-align: center;
+}
+
+.btn_ticket a {
+    width: 86%
+}
+
+.modal__no h4 {
+    text-align: center;
+    color: #000;
+}
+
+.form-group {
+    color: #000;
+}
+
+.form-group label {
+    width: 90px;
+}
+
+.event-disable {
+    pointer-events: none;
+}

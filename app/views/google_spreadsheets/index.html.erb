@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="btn_ticket">
+    <% if @state == 'need_registration' %>
+      <div class="modal fade modal__no" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4>Unfortunately, you are not the owner of GOLD ticket</h4>
+              <p><a href="https://outsource-people.com/#tickets-box" class="btn btn-primary mb-2" title="Buy ticket" data-content="Popover body content is set in this attribute.">Придбати квиток</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% elsif @state == 'already_registered'%>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>You are already registered</h4>
+      </div>
+    <% elsif @state == 'successfully_registered' %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>You have been successfully registered</h4>
+      </div>
+    <% end %>
+  </div>
+  <div class="wrapper">
+    <% @speakers.each do |speaker| %>
+      <h3 class=""><%= speaker[0] %></h3>
+      <div class="text-center wrapper__items">
+          <% speaker[1..3].each do |timeslot|%>
+            <div class="wrapper__item" >
+              <div class="event" data-toggle="modal" data-target="#exampleModal">
+                <%= timeslot %>
+              </div>
+              <%= render 'modal', speaker: speaker[0], timeslot: timeslot%>
+            </div>
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8">
+$('.modal__no').modal('show')
+</script>
