@@ -10,18 +10,19 @@
               </button>
             </div>
             <div class="modal-body">
-              <h4>Unfortunately, you are not the owner of GOLD ticket</h4>
-              <p><a href="https://outsource-people.com/#tickets-box" class="btn btn-primary mb-2" title="Buy ticket" data-content="Popover body content is set in this attribute.">Придбати квиток</a></p>
+              <h4>Unfortunately, you are not the owner of GOLD ticket or VIP</h4>
+              <p><a href="https://outsource-people.com/#tickets-box" class="btn btn-primary mb-2"
+                title="Buy ticket" data-content="Popover body content is set in this attribute.">Buy ticket</a></p>
             </div>
           </div>
         </div>
       </div>
-    <% elsif @state == 'already_registered'%>
-      <div class="alert alert-danger alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>You are already registered</h4>
-      </div>
-    <% elsif @state == 'successfully_registered' %>
+    <%# elsif @state == 'already_registered'%>
+<!--      <div class="alert alert-danger alert-dismissible" role="alert">-->
+<!--        <button type="button" class="close" data-dismiss="alert">&times;</button>-->
+<!--        <h4>You are already registered</h4>-->
+<!--      </div>-->
+    <% else @state == 'successfully_registered' %>
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h4>You have been successfully registered</h4>
@@ -29,24 +30,71 @@
     <% end %>
   </div>
   <div class="wrapper">
-    <% @speakers.each do |speaker| %>
-      <h3 class=""><%= speaker[0] %></h3>
+    <% @speakers.each_with_index do |speaker, index| %>
+      <h3><%= speaker[0] %></h3>
       <div class="text-center wrapper__items">
-          <% speaker[1..3].each do |timeslot|%>
-            <div class="wrapper__item" >
-              <div class="event" data-toggle="modal" data-target="#exampleModal">
-                <%= timeslot %>
-              </div>
-              <%= render 'modal', speaker: speaker[0], timeslot: timeslot%>
+        <% speaker[1..3].each_with_index do |timeslot, i|%>
+          <div class="wrapper__item" >
+            <div class="event" data-toggle="modal" data-target="#exampleModal<%= index %><%= i %>" >
+              <%= timeslot %>
             </div>
-          <% end %>
+            <%#= render 'modal', speaker: speaker[0], timeslot: timeslot %>
+
+            <div class="modal fade" id="exampleModal<%= index %><%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel<%= index %><%= i %>" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fill the form please</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+
+                  <%= form_tag google_spreadsheets_path do %>
+                    <div class="modal-body">
+                      <div class="form-group ">
+                        <%= label_tag :name, 'Name' %>
+                        <%= text_field_tag :name %>
+                      </div>
+
+                      <div class="form-group ">
+                        <%= label_tag :phone, 'Phone number' %>
+                        <%= telephone_field_tag :phone %>
+                      </div>
+
+                      <div class="form-group ">
+                        <%= label_tag :email, 'Email' %>
+                        <%= text_field_tag :email %>
+                      </div>
+
+                      <div class="form-group ">
+                        <%= label_tag :note, 'Note'  %>
+                        <%= text_area_tag :note %>
+                      </div>
+
+                      <%= hidden_field_tag :timeslot, timeslot  %>
+                      <%= hidden_field_tag :speaker, speaker  %>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <%= submit_tag 'Filling', class: 'btn btn-primary'%>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
 </div>
 
 
-
 <script type="text/javascript" charset="utf-8">
 $('.modal__no').modal('show')
 </script>
+
+<!--            <div class=<%#= speaker[1].present? ? "event" : "event-disable" %> data-toggle="modal" data-target="#exampleModal"></div>-->

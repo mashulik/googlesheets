@@ -9,7 +9,7 @@ body
     width: 100px;
     background-color: whitesmoke;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
     list-style-type: none;
     text-align: center;
 }
@@ -60,3 +60,9 @@ body
 .event-disable {
     pointer-events: none;
 }
+
+.modal-title {
+    color: black;
+    font-weight: bold;
+}
+
