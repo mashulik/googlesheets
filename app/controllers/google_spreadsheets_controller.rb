@@ -7,6 +7,7 @@ class GoogleSpreadsheetsController < ApplicationController
   def index
     @state = params[:state]
     @speakers = @speakers_worksheet.rows
+    @speakers_grouped_by = @speakers.group_by {|t| t[4]}
   end
 
   def new
@@ -22,7 +23,7 @@ class GoogleSpreadsheetsController < ApplicationController
 
       redirect_to action: 'index', state: 'successfully_registered'
     elsif @registered_users_worksheet.rows.map { |row| row[2] }.exclude?(google_params['email'])
-          redirect_to action: 'index', state: 'need_registration'
+      redirect_to action: 'index', state: 'need_registration'
     else
       redirect_to action: 'index', state: 'already_registered'
     end

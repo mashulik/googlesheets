@@ -1,0 +1,31 @@
+<div class="btn_ticket">
+  <% if @state == 'need_registration' %>
+    <div class="modal fade modal__no" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>Unfortunately, you are not the owner of GOLD ticket or VIP ticket</h4>
+            <p><a href="https://outsource-people.com/#tickets-box" class="btn btn-primary mb-2"
+                  title="Buy ticket" data-content="Popover body content is set in this attribute.">Buy ticket</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% elsif @state == 'already_registered'%>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4>You have already registered 3 times</h4>
+    </div>
+  <% else @state == 'successfully_registered' %>
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4> You have been successfully registered. Please, pay attention
+        that only 3 registrations are available.</h4>
+    </div>
+  <% end %>
+</div>
